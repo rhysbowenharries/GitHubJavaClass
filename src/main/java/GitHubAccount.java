@@ -52,7 +52,9 @@ public class GitHubAccount {
 
     public void makeCommitToRepository(String repositoryName, String uniqueId, CommitType commitType, String description){
         Repository repository = this.getRepositoryByName(repositoryName);
-        repository.makeCommit(uniqueId, commitType,description);
+        if (repository != null) {
+            repository.makeCommit(uniqueId, commitType, description);
+        }
 
     }
 
@@ -61,7 +63,13 @@ public class GitHubAccount {
         return repository.commitsCount();
     }
 
-    public int getRepositoryWithMostCommits() {
+    public int getRepositoryWithMostCommitsSize() {
+
+         Repository repository = this.getRepositoryWithMostComits();
+         return repository.commitsCount();
+    }
+
+    public Repository getRepositoryWithMostComits(){
         Repository repositoryMostCommits = null;
         for(Repository repository: this.repositries.values()){
             if(repositoryMostCommits == null){
@@ -70,6 +78,7 @@ public class GitHubAccount {
             else if(repository.commitsCount() > repositoryMostCommits.commitsCount()){
                 repositoryMostCommits = repository;
             }
-        } return repositoryMostCommits.commitsCount();
+        } return repositoryMostCommits;
     }
+
 }

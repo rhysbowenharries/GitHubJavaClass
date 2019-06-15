@@ -72,7 +72,12 @@ public class GitHubAccountTest {
         gitHubAccount.makeCommitToRepository("Pokemon Api", "F3", CommitType.FEATURE, "Test the best");
         gitHubAccount.makeCommitToRepository("Pokemon Api", "F4", CommitType.FEATURE, "Toast");
         gitHubAccount.makeCommitToRepository("Restful Petshop", "d3", CommitType.FEATURE, "wubaduadubdub");
-        gitHubAccount.getRepositoryWithMostCommits();
-        assertEquals(4, gitHubAccount.getRepositoryWithMostCommits());
+        assertEquals(4, gitHubAccount.getRepositoryWithMostCommitsSize());
+    }
+
+    @Test
+    public void cantMakeCommitIfNoRepository(){
+        gitHubAccount.makeCommitToRepository("Restful Petshop", "d3", CommitType.FEATURE, "wubaduadubdub");
+        assertEquals(false, gitHubAccount.repositoryContainsKey("Restful Petshop"));
     }
 }
