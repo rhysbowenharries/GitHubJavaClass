@@ -82,8 +82,6 @@ public class GitHubAccount {
     }
 
     public void rollBack(String uniqueId) {
-        for(Repository repository: this.repositries.values()){
-            repository.getCommitById(uniqueId);
-        }
+       repository.rollBack(uniqueId);
     }
 }
