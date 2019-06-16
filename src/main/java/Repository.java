@@ -52,4 +52,21 @@ public class Repository {
         }
         return null;
     }
+
+    public int getCommitIndexByUniqueId(String uniqueId) {
+        Commit commit = getCommitById(uniqueId);
+        return this.commits.indexOf(commit);
+    }
+
+    public void rollBack(String uniqueId) {
+        int uniqueIdIndex = getCommitIndexByUniqueId(uniqueId);
+        for (int i = uniqueIdIndex; i < this.commits.size() ; i++) {
+            this.commits.remove(commitByIndex(i));
+
+        }
+
+    }
+
+
+
 }

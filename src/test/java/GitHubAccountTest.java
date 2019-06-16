@@ -80,4 +80,14 @@ public class GitHubAccountTest {
         gitHubAccount.makeCommitToRepository("Restful Petshop", "d3", CommitType.FEATURE, "wubaduadubdub");
         assertEquals(false, gitHubAccount.repositoryContainsKey("Restful Petshop"));
     }
+
+    @Test
+    public void canRollBack(){
+        gitHubAccount.makeCommitToRepository("Pokemon Api", "F1", CommitType.FEATURE, "Test");
+        gitHubAccount.makeCommitToRepository("Pokemon Api", "F2", CommitType.FEATURE, "Testing");
+        gitHubAccount.makeCommitToRepository("Pokemon Api", "F3", CommitType.FEATURE, "Test the best");
+        gitHubAccount.makeCommitToRepository("Pokemon Api", "F4", CommitType.FEATURE, "Toast");
+        gitHubAccount.rollBack("F2");
+        assertEquals(2, gitHubAccount.countRepositoryCommits("Pokemon Api"));
+    }
 }

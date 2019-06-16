@@ -81,4 +81,9 @@ public class GitHubAccount {
         } return repositoryMostCommits;
     }
 
+    public void rollBack(String uniqueId) {
+        for(Repository repository: this.repositries.values()){
+            repository.getCommitById(uniqueId);
+        }
+    }
 }

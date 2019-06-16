@@ -60,6 +60,31 @@ public class RepositoryTest {
         assertEquals(repository.commitByIndex(1), repository.getCommitByType(CommitType.OTHER));
     }
 
+    @Test
+    public void canRollBack() {
+        repository.makeCommit("C3", CommitType.OTHER, "note to dev");
+        repository.makeCommit("C5", CommitType.BUGFIX, "no more bugz");
+        repository.rollBack("C3");
+        assertEquals(2, repository.commitsCount());
+    }
+
+    @Test
+    public void canRollBackWithMore(){
+        repository.makeCommit("C3", CommitType.OTHER, "note to dev");
+        repository.makeCommit("C5", CommitType.BUGFIX, "no more bugz");
+        repository.makeCommit("C7", CommitType.OTHER, "note to dev");
+        repository.makeCommit("C4", CommitType.BUGFIX, "no more bugz");
+        repository.rollBack("C7");
+        assertEquals(4, repository.commitsCount());
+    }
+
+
+    @Test
+    public void canGetCommitIndexByUniqueId(){
+        repository.makeCommit("C3", CommitType.OTHER, "note to dev");
+        repository.makeCommit("C5", CommitType.BUGFIX, "no more bugz");
+        assertEquals(1, repository.getCommitIndexByUniqueId("C3"));
+    }
 
 }
 
